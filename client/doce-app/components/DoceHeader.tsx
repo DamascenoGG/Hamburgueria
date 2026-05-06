@@ -16,7 +16,7 @@ export default function DoceHeader() {
 
         <div className="flex flex-col">
           <h1 className="text-[#f1a128] font-bold text-xl tracking-wider leading-none font-sans">
-            DO'CE <span className="text-white">HAMBURGUERIA</span>
+            DO&apos;CE <span className="text-white">HAMBURGUERIA</span>
           </h1>
           <p className="text-[#666] text-[10px] uppercase tracking-[0.2em] mt-1">
             Ilicínea - MG
