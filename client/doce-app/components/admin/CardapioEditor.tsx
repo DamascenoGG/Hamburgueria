@@ -1,5 +1,6 @@
 "use client";
 import { Produto } from "@/types/admin"; // Certifique-se de ter criado esse arquivo como sugerido antes
+import Image from "next/image";
 import { useState } from "react";
 
 export default function CardapioEditor() {
@@ -20,6 +21,10 @@ export default function CardapioEditor() {
   const [editingProduct, setEditingProduct] = useState<Produto | null>(null);
   // Estado para controlar se o modal de novo produto está aberto
   const [isAddingNew, setIsAddingNew] = useState(false);
+  // Estado para excluir novo produto
+  const [isDeletingProduct, setIsDeletingProduct] = useState<Produto | null>(
+    null,
+  );
   // Estado para o novo produto
   const [newProduct, setNewProduct] = useState<Produto>({
     id: "",
@@ -82,6 +87,16 @@ export default function CardapioEditor() {
     setIsAddingNew(false);
   };
 
+  const handleDeleteProduct = (): void => {
+    if (!isDeletingProduct) {
+      return;
+    }
+
+    setProdutos((prev) => prev.filter((p) => p.id !== isDeletingProduct.id));
+    setIsDeletingProduct(null);
+    // Aqui no futuro você faria o fetch para o NestJS
+  };
+
   return (
     <div className="animate-in fade-in duration-500">
       <div className="flex justify-between items-center mb-8">
@@ -101,7 +116,38 @@ export default function CardapioEditor() {
         )}
       </div>
 
-      {isAddingNew ? (
+      {isDeletingProduct ? (
+        /* MODAL DE CONFIRMAÇÃO DE EXCLUSÃO */
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-[#1a1a1a] p-8 rounded-3xl border border-[#332a1a] shadow-lg max-w-md w-full animate-in zoom-in-95 duration-300">
+            <h2 className="text-xl font-bold mb-4 text-white">
+              Tem certeza que deseja deletar?
+            </h2>
+            <p className="text-[#aaa] mb-6">
+              Você está prestes a deletar{" "}
+              <span className="font-bold text-white">
+                &quot;{isDeletingProduct.nome}&quot;
+              </span>
+              . Esta ação não pode ser desfeita.
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                onClick={handleDeleteProduct}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-bold transition-colors"
+              >
+                Deletar
+              </button>
+              <button
+                onClick={() => setIsDeletingProduct(null)}
+                className="flex-1 bg-[#2a2a2a] hover:bg-[#333] text-[#888] py-3 rounded-xl font-bold transition-colors"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : isAddingNew ? (
         /* MODAL PARA ADICIONAR NOVO PRODUTO */
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-[#1a1a1a] p-8 rounded-3xl border border-[#332a1a] shadow-lg max-w-2xl w-full animate-in zoom-in-95 duration-300">
@@ -278,14 +324,14 @@ export default function CardapioEditor() {
       ) : (
         /* GRID DE PRODUTOS */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {produtos.map((produto) => (
+          {produtos.map((produto: Produto) => (
             <div
               key={produto.id}
               className="bg-[#1a1a1a] group rounded-3xl border border-[#332a1a] overflow-hidden hover:shadow-xl hover:shadow-[#f1a128]/20 transition-all duration-300"
             >
               <div className="h-48 bg-zinc-100 relative overflow-hidden">
                 {produto.fotoUrl ? (
-                  <img
+                  <Image
                     src={produto.fotoUrl}
                     alt={produto.nome}
                     className="w-full h-full object-cover"
@@ -309,7 +355,7 @@ export default function CardapioEditor() {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {produto.ingredientes.map((ing, idx) => (
+                  {produto.ingredientes.map((ing: string, idx: number) => (
                     <span
                       key={idx}
                       className="bg-zinc-100 text-zinc-600 text-[10px] uppercase font-bold px-2 py-1 rounded-md"
@@ -324,6 +370,12 @@ export default function CardapioEditor() {
                   className="w-full py-3 bg-zinc-50 text-zinc-900 font-bold rounded-xl border border-zinc-200 group-hover:bg-orange-600 group-hover:text-white group-hover:border-orange-600 transition-all duration-300"
                 >
                   Editar Produto
+                </button>
+                <button
+                  onClick={() => setIsDeletingProduct(produto)}
+                  className="w-full py-3 mt-2 bg-zinc-50 text-zinc-900 font-bold rounded-xl border border-zinc-200 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 transition-all duration-300"
+                >
+                  Deletar Produto
                 </button>
               </div>
             </div>
