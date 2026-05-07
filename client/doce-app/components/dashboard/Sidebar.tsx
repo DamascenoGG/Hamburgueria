@@ -28,6 +28,7 @@ export default function Sidebar() {
     },
   ];
 
+
   return (
     <aside className="w-64 bg-[#121212] border-r border-[#332a1a] flex flex-col h-full">
       <nav className="flex-1 px-4 py-8 space-y-3">
