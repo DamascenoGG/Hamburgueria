@@ -1,18 +1,22 @@
-export type AdminTab = "cardapio" | "equipe" | "mesas";
+export type DashboardTab = "mesas" | "cardapio";
 
-export interface MenuItem {
-  id: AdminTab;
+export interface DashboardMenuItem {
+  id: DashboardTab;
   label: string;
   icon: string;
 }
 
-export interface Produto {
-  id: string;
-  nome: string;
-  preco: number;
-  descricao: string;
-  ingredientes: string[];
-  fotoUrl?: string;
+export interface DashboardSidebarProps {
+  activeTab: DashboardTab;
+  setActiveTab: (tab: DashboardTab) => void;
+}
+
+export interface ItemPedido {
+  id: number;
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
 }
 
 export interface Mesa {
@@ -22,4 +26,5 @@ export interface Mesa {
   consumidor?: string;
   pessoas?: number;
   horario?: string;
+  pedidos?: ItemPedido[];
 }

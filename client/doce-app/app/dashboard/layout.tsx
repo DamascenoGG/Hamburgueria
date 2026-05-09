@@ -1,4 +1,3 @@
-import Sidebar from "@/components/dashboard/Sidebar";
 import DoceHeader from "@/components/DoceHeader";
 import { Metadata } from "next";
 
@@ -10,9 +9,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <DoceHeader />
       
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar fixa à esquerda */}
-        <Sidebar />
-        
         {/* Conteúdo principal com scroll independente */}
         <main className="flex-1 overflow-y-auto p-0">
           {children}

@@ -1,19 +1,19 @@
-"use client";
-import { DashboardMenuItem, DashboardSidebarProps } from "@/types/dashboard";
+import { MenuItem, SidebarProps } from "@/types/admin";
 
-const menuItems: DashboardMenuItem[] = [
+const menuItems: MenuItem[] = [
+  { id: "cardapio", label: "Editar Cardápio", icon: "🍔" },
+  { id: "equipe", label: "Organograma", icon: "👥" },
   { id: "mesas", label: "Mapa de Mesas", icon: "📍" },
-  { id: "cardapio", label: "Cardápio", icon: "🍔" },
 ];
 
-export default function SidebarDashboard({
+export default function SidebarAdmin({
   activeTab,
   setActiveTab,
-}: DashboardSidebarProps) {
+}: SidebarProps) {
   return (
     <aside className="w-64 bg-[#0f0f0f] border-r border-[#332a1a] p-6 flex flex-col gap-2">
       <h2 className="text-[#f1a128] font-bold text-xl mb-8 px-2 uppercase tracking-tighter">
-        Do&apos;ce Dashboard
+        Do&apos;ce Admin
       </h2>
       {menuItems.map((item) => (
         <button

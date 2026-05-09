@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { MesaProvider } from "./context/MesaContext"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,17 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="pt-br"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#121212] text-white">
-        {children}
+        {/* Envolvemos o children com o MesaProvider. 
+            Isso permite que tanto a página de Mesas quanto a de Pedidos
+            compartilhem os mesmos dados em tempo real.
+        */}
+        <MesaProvider>
+          {children}
+        </MesaProvider>
       </body>
     </html>
   );

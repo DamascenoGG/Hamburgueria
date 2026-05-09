@@ -13,13 +13,12 @@ export default function DoceHeader() {
   return (
     <header className="w-full bg-[#121212] border-b border-[#332a1a] px-4 py-3 flex items-center justify-between shadow-md">
       <div className="flex items-center gap-3">
-        {/* Container da Logo */}
         <div className="relative w-14 h-14">
           <Image
             src="/logodoce.svg"
             alt="Do'cê Hamburgueria"
             fill
-            className="object-contain"
+            className="object-contain brightness-0 invert"
             priority
           />
         </div>
