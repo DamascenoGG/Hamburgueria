@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
+import UserProfile from "./UserProfile";
 
 export default function DoceHeader() {
   const params = useParams();
@@ -45,14 +46,22 @@ export default function DoceHeader() {
           >
             Trocar Mesa
           </button>
+          <div className="border-l border-[#333] pl-3 ml-3">
+            <UserProfile />
+          </div>
         </div>
       ) : (
-        /* Caso contrário, mostra apenas o status de sistema online */
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-[#888] text-[10px] font-medium uppercase tracking-tighter">
-            Sistema de Pedidos
-          </span>
+        /* Caso contrário, mostra o status de sistema online e perfil do usuário */
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+            <span className="text-[#888] text-[10px] font-medium uppercase tracking-tighter">
+              Sistema de Pedidos
+            </span>
+          </div>
+          <div className="border-l border-[#333] pl-4">
+            <UserProfile />
+          </div>
         </div>
       )}
     </header>
