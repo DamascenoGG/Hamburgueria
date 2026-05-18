@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:client": "pnpm --filter doce-app dev"
+    "dev:client": "pnpm --filter doce-app dev",
+    "dev:server": "pnpm --filter doce-server start"
   },
   "devDependencies": {
     "@types/node": "^25.6.0",
